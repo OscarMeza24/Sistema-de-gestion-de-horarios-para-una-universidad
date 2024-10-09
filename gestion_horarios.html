@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de gestión de Horarios</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="video.mp4" type="video/mp4"> <!-- Cambia "tu-video.mp4" por el nombre de tu archivo de video -->
+    </video>
+
+    <header>
+        <img src="logo.png" alt="Logo"> <!-- Asegúrate de tener tu logo -->
+        <h1>Uleam</h1>
+    </header>
+
+    <h1>Sistema de horarios de la Uleam</h1>
+
+    <div id="infoSeleccionada">
+        <strong>Facultad:</strong> <span id="facultadSeleccionada"></span><br>
+        <strong>Jornada:</strong> <span id="jornadaSeleccionada"></span><br>
+        <strong>Nivel:</strong> <span id="nivelSeleccionado"></span>
+    </div>
+    
+    <form id="AgregarHorario">
+        <label for="profesor">Profesor:</label>
+        <select id="profesor" name="profesor" required></select>
+        
+        <label for="Aula">Aula (ej., 101):</label>
+        <select id="Aula" name="Aula" required>
+            <option value="101">101</option>
+            <option value="102">102</option>
+            <option value="103">103</option>
+            <option value="104">104</option>
+            <option value="105">105</option>
+        </select>
+
+        <label for="Materia">Materia:</label>
+        <select id="Materia" name="Materia" required></select>
+
+        <label for="Dia">Día:</label>
+        <select id="Dia" name="Dia" required>
+            <option value="Lunes">Lunes</option>
+            <option value="Martes">Martes</option>
+            <option value="Miercoles">Miércoles</option>
+            <option value="Jueves">Jueves</option>
+            <option value="Viernes">Viernes</option>
+        </select>
+
+        <label for="InicioClas">Inicio de clase:</label>
+        <select id="InicioClas" name="InicioClas" required></select>
+
+        <label for="Duracion">Duración (horas):</label>
+        <select type="number" id="Duracion" name="Duracion" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+
+        <button type="submit">Agregar</button>
+    </form>
+
+    <h2>Horario Generado</h2>
+    <div class="CuadrillaHorario">
+        <table id="TablaHorarios">
+            <thead>
+                <tr>
+                    <th>Hora</th>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <button id="regresar">Regresar</button>
+    <button id="guardarHorario">Guardar Horario como Imagen</button>
+
+    <!-- Mensaje para mostrar el estado de la operación -->
+    <div id="mensajeEstado" style="color: green; margin-top: 10px;"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script> <!-- Archivo JS externo -->
+
+    <script>
+        document.getElementById("guardarHorario").addEventListener("click", function() {
+            const tabla = document.getElementById("TablaHorarios");
+            
+            html2canvas(tabla).then(function(canvas) {
+                const imgData = canvas.toDataURL("image/png");
+                
+                // Crear un enlace temporal para la descarga
+                const link = document.createElement('a');
+                link.href = imgData;
+                link.download = 'horario.png'; // Nombre del archivo a descargar
+                document.body.appendChild(link); // Añadir el enlace al DOM
+                link.click(); // Simular clic en el enlace
+                document.body.removeChild(link); // Remover el enlace del DOM
+                
+                // Mostrar mensaje de éxito
+                const mensajeEstado = document.getElementById("mensajeEstado");
+                mensajeEstado.textContent = "Horario guardado como imagen correctamente. Se ha iniciado la descarga.";
+                setTimeout(() => { mensajeEstado.textContent = ""; }, 5000); // Limpiar mensaje después de 5 segundos
+                
+            }).catch(function(error) {
+                console.error("Error al guardar el horario como imagen:", error);
+            });
+        });
+
+        document.getElementById("regresar").addEventListener("click", function() {
+            window.history.back(); // Regresar a la página anterior
+        });
+    </script>
+</body>
+</html>

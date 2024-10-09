@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horarios Guardados</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="video.mp4" type="video/mp4"> <!-- Cambia "tu-video.mp4" por el nombre de tu archivo de video -->
+    </video>
+
+    <header>
+        <img src="logo.png" alt="Logo"> <!-- Asegúrate de tener tu logo -->
+        <h1>Uleam</h1>
+    </header>
+
+    <header>
+        <h1>Horarios Guardados</h1>
+        <button id="regresar">Regresar</button>
+    </header>
+
+    <div class="gallery">
+        <h2>Galería de Horarios</h2>
+        <div id="imagenesHorarios" class="imagenes-container">
+            <!-- Aquí se mostrarán las imágenes de los horarios guardados -->
+        </div>
+    </div>
+
+    <script src="script.js"></script> <!-- Archivo JS externo -->
+
+    <script>
+        document.getElementById("regresar").addEventListener("click", function() {
+            window.location.href = "login.html"; // Regresar a la página de inicio de sesión
+        });
+        document.getElementById("regresar").addEventListener("click", function() {
+            window.history.back(); // Regresar a la página anterior
+        });
+
+        // Cargar las imágenes de los horarios guardados
+        window.onload = function() {
+            const imagenesContainer = document.getElementById("imagenesHorarios");
+            let imgSrc = localStorage.getItem("horarioGuardado");
+            
+            if (imgSrc) {
+                let imagenDiv = document.createElement("div");
+                imagenDiv.classList.add("imagen-container");
+                let img = document.createElement("img");
+                img.src = imgSrc;
+                imagenDiv.appendChild(img);
+                imagenesContainer.appendChild(imagenDiv);
+            } else {
+                imagenesContainer.innerHTML = "<p>No hay horarios guardados.</p>";
+            }
+        };
+
+    </script>
+
+</body>
+</html>

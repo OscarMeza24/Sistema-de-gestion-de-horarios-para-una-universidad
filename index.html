@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccion Carrera y Nivel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="video.mp4" type="video/mp4"> <!-- Cambia "tu-video.mp4" por el nombre de tu archivo de video -->
+    </video>
+
+    <header>
+        <img src="logo.png" alt="Logo"> <!-- Asegúrate de tener tu logo -->
+        <h1>Uleam</h1>
+    </header>
+
+    <h1>Seleccione Carrera y Nivel</h1>
+    
+    <form id="SeleccionCarreraNivelJornada">
+        <label for="facultad">Carrera:</label>
+        <select id="facultad" name="facultad" required>
+            <option value="Ingeniería en Software">Ingeniería en Software</option>
+            <option value="TI">TI</option>
+        </select>
+
+        <label for="jornada">Jornada:</label>
+        <select id="jornada" name="jornada" required>
+            <option value="Matutina">Matutina</option>
+            <option value="Vespertina">Vespertina</option>
+        </select>
+
+        <label for="nivel">Nivel:</label>
+        <select id="nivel" name="nivel" required>
+            <option value="1">Nivel 1</option>
+            <option value="2">Nivel 2</option>
+            <option value="3">Nivel 3</option>
+            <option value="4">Nivel 4</option>
+            <option value="5">Nivel 5</option>
+            <option value="6">Nivel 6</option>
+            <option value="7">Nivel 7</option>
+            <option value="8">Nivel 8</option>
+        </select>
+
+        <button id="siguiente">Siguiente</button>
+
+        <button id="regresar">Regresar</button>
+
+
+    </form>
+
+    <script>
+        document.getElementById("SeleccionCarreraNivelJornada").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const facultad = document.getElementById("facultad").value;
+            const jornada = document.getElementById("jornada").value;
+            const nivel = document.getElementById("nivel").value;
+
+            localStorage.setItem("facultad", facultad);
+            localStorage.setItem("jornada", jornada);
+            localStorage.setItem("nivel", nivel);
+
+            document.getElementById("siguiente").addEventListener("click", function() {
+            window.location.href = "gestion_horarios.html"; // Regresar a la página de inicio de sesión
+            });
+        });
+
+        document.getElementById("regresar").addEventListener("click", function() {
+            window.location.href = "login.html"; // Regresar a la página de inicio de sesión
+        });
+    </script>
+
+</body>
+</html>
